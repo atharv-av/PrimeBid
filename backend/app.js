@@ -22,7 +22,7 @@ app.use(
     origin: ["http://localhost:5173", "https://hilarious-tapioca-d5f5d6.netlify.app"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
-  })
+  }) 
 );
 
 app.use(cookieParser());
