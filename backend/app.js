@@ -1,4 +1,3 @@
-import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -15,15 +14,14 @@ import { endedAuctionCron } from "./automation/endedAuctionCron.js";
 import { verifyCommissionCron } from "./automation/verifyCommissionCron.js";
 
 const app = express();
-config({
-  path: "./config/config.env",
-});
 
 dotenv.config();
 
+app.use(express.static("public"));
+
 app.use(
   cors({
-    origin: "*",
+origin: ["http://localhost:5173", "https://primebidauction.netlify.app"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
