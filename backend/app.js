@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import fileUpload from "express-fileupload";
 import { connection } from "./database/connection.js";
 import { errorMiddleware } from "./middlewares/error.js";
@@ -17,11 +17,20 @@ const app = express();
 
 dotenv.config();
 
-app.use(express.static("public"));
+// Serve static files from the React build
+app.use(
+  express.static(path.join(__dirname, "build"), {
+    setHeaders: (res, path) => {
+      if (path.endsWith(".js")) {
+        res.set("Content-Type", "application/javascript");
+      }
+    },
+  })
+);
 
 app.use(
   cors({
-origin: ["http://localhost:5173", "https://primebidauction.netlify.app"],
+    origin: ["http://localhost:5173", "https://primebidauction.netlify.app"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
