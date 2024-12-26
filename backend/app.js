@@ -3,7 +3,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import fileUpload from "express-fileupload";
-import path from "path";
 import { connection } from "./database/connection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import userRouter from "./router/userRoutes.js";
@@ -17,17 +16,6 @@ import { verifyCommissionCron } from "./automation/verifyCommissionCron.js";
 const app = express();
 
 dotenv.config();
-
-// Serve static files from the React build
-app.use(
-  express.static(path.join(__dirname, "build"), {
-    setHeaders: (res, path) => {
-      if (path.endsWith(".js")) {
-        res.set("Content-Type", "application/javascript");
-      }
-    },
-  })
-);
 
 app.use(
   cors({
